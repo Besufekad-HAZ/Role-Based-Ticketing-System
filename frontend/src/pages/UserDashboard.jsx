@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../services/api";
+import Navbar from "../components/Navbar";
 
 const UserDashboard = () => {
   const [tickets, setTickets] = useState([]);
@@ -44,6 +45,7 @@ const UserDashboard = () => {
 
   return (
     <div>
+      <Navbar />
       <h1>User Dashboard</h1>
 
       {/* Form to create a new ticket */}

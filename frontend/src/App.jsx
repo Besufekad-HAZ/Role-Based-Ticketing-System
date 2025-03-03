@@ -4,16 +4,22 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Home from "./pages/Home";
-import Signup from "./pages/Signup";
+import Home from "./pages/Home"; // Import Home page
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import { useAuth } from "./context/AuthContext";
 
 // Simple wrapper to check for token
-function PrivateRoute({ children }) {
-  const token = localStorage.getItem("token");
-  return token ? children : <Navigate to="/" replace />;
+function PrivateRoute({ children, requiredRole }) {
+  const { user } = useAuth();
+
+  if (!user) return <Navigate to="/login" replace />;
+  if (requiredRole && user.role !== requiredRole)
+    return <Navigate to="/" replace />;
+
+  return children;
 }
 
 function App() {
@@ -21,6 +27,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route
           path="/user-dashboard"
@@ -33,7 +40,7 @@ function App() {
         <Route
           path="/admin-dashboard"
           element={
-            <PrivateRoute>
+            <PrivateRoute requiredRole="admin">
               <AdminDashboard />
             </PrivateRoute>
           }

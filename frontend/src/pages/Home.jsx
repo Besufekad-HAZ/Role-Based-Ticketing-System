@@ -1,31 +1,42 @@
-import React, { useEffect, useState } from "react";
-import axios from "../services/api";
-import Login from "./Login";
-import Signup from "./Signup";
+import React from "react";
+import { withRouter } from "react-router-dom";
+// import { useAuth } from "../context/AuthContext";
+import axios from "axios";
 
-const Home = () => {
-  const [hasUsers, setHasUsers] = useState(null);
+class Login extends React.Component {
+  state = {
+    username: "",
+    password: "",
+    error: "",
+  };
 
-  useEffect(() => {
-    const checkUsers = async () => {
-      try {
-        // Assuming you have created a corresponding backend endpoint that returns:
-        // { count: <number_of_users> }
-        const response = await axios.get("/auth/users/count");
-        setHasUsers(response.data.count > 0);
-      } catch (error) {
-        console.error("Error checking user count:", error);
-        // Fallback: assume users exist
-        setHasUsers(true);
-      }
-    };
-    checkUsers();
-  }, []);
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/auth/login", this.state);
+      this.props.login(response.data.token, response.data.role);
+      // Redirect logic using this.props.history
+    } catch {
+      this.setState({ error: "Invalid credentials" });
+    }
+  };
 
-  if (hasUsers === null) {
-    return <div>Loading...</div>;
+  render() {
+    return (
+      <div className="home-container">
+        <h2>Welcome to Ticketing System</h2>
+        <div className="auth-options">
+          <Link to="/login" className="auth-link">
+            Login
+          </Link>
+          <span> or </span>
+          <Link to="/signup" className="auth-link">
+            Sign Up
+          </Link>
+        </div>
+      </div>
+    );
   }
-  return hasUsers ? <Login /> : <Signup />;
-};
+}
 
-export default Home;
+export default withRouter(Login);

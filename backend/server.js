@@ -20,7 +20,7 @@ mongoose
   .catch((err) => console.error(err));
 
 // Routes
-app.use("/auth", authRoutes);
-app.use("/tickets", ticketRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/tickets", ticketRoutes);
 
 app.listen(5000, () => console.log("Server running on port 5000"));

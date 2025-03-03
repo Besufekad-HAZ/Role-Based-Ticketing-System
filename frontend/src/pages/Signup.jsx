@@ -7,21 +7,23 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/signup", { username, email, password, role });
+      await axios.post("/auth/signup", { username, email, password, role });
       navigate("/");
-    } catch (error) {
-      console.error(error);
+    } catch {
+      setError("Registration failed. Please try again.");
     }
   };
 
   return (
     <div>
       <h1>Signup</h1>
+      {error && <div className="error">{error}</div>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
