@@ -1,11 +1,12 @@
-// filepath: /home/bese/All projects/Role-Based-Ticketing-System/backend/routes/tickets.js
-const router = require('express').Router();
-const Ticket = require('../models/Ticket');
-const authMiddleware = require('../middleware/auth'); // implement JWT check
+const router = require("express").Router();
+const Ticket = require("../models/Ticket");
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.post('/', authMiddleware, async (req, res) => {
+// POST /tickets → Create a support ticket
+router.post("/", authMiddleware, async (req, res) => {
   const { title, description } = req.body;
   try {
+    // Get the logged in user's id from the auth middleware
     const userId = req.user.userId;
     const ticket = new Ticket({ title, description, userId });
     await ticket.save();
@@ -15,10 +16,11 @@ router.post('/', authMiddleware, async (req, res) => {
   }
 });
 
-router.get('/', authMiddleware, async (req, res) => {
+// GET /tickets → Retrieve tickets based on role: admin sees all, user sees their own
+router.get("/", authMiddleware, async (req, res) => {
   try {
-    if (req.user.role === 'admin') {
-      const allTickets = await Ticket.find().populate('userId', 'username');
+    if (req.user.role === "admin") {
+      const allTickets = await Ticket.find().populate("userId", "username");
       return res.json(allTickets);
     } else {
       const userTickets = await Ticket.find({ userId: req.user.userId });
@@ -29,10 +31,11 @@ router.get('/', authMiddleware, async (req, res) => {
   }
 });
 
-router.put('/:id', authMiddleware, async (req, res) => {
+// PUT /tickets/:id → Update ticket status (admins only)
+router.put("/:id", authMiddleware, async (req, res) => {
   try {
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({ error: 'Not authorized' });
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ error: "Not authorized" });
     }
     const { status } = req.body;
     const updated = await Ticket.findByIdAndUpdate(
@@ -45,3 +48,5 @@ router.put('/:id', authMiddleware, async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+module.exports = router;
