@@ -1,17 +1,18 @@
-// filepath: /home/bese/All projects/Role-Based-Ticketing-System/backend/routes/auth.js
-const router = require('express').Router();
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+// filepath: /home/bese/All projects/Role-Based-Ticketing-System/backend/middleware/auth.js
+const jwt = require("jsonwebtoken");
 
-// POST /signup
-router.post('/signup', async (req, res) => {
-  // ...handle user creation with hashed password...
-});
+const authMiddleware = (req, res, next) => {
+  const header = req.headers.authorization;
+  if (!header) return res.status(401).json({ message: "Missing token" });
 
-// POST /login
-router.post('/login', async (req, res) => {
-  // ...validate user credentials and return JWT...
-});
+  const token = header.split(" ")[1];
+  try {
+    const decoded = jwt.verify(token, "secretKey"); // use your secret
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+};
 
-module.exports = router;
+module.exports = authMiddleware;
