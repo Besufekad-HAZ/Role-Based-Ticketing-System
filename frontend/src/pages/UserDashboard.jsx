@@ -6,6 +6,7 @@ const UserDashboard = () => {
   const [tickets, setTickets] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -17,6 +18,8 @@ const UserDashboard = () => {
         setTickets(response.data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchTickets();
@@ -42,6 +45,8 @@ const UserDashboard = () => {
       console.error(error);
     }
   };
+
+  if (loading) return <div>Loading tickets...</div>;
 
   return (
     <div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "../services/api";
 import { useNavigate } from "react-router-dom";
-import { AuthProvider } from "../context/AuthContext";
+import useAuth from "../hooks/useAuth";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -10,14 +10,19 @@ const Signup = () => {
   const [role, setRole] = useState("user");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { login } = AuthProvider();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Call the signup endpoint
       await axios.post("/auth/signup", { username, email, password, role });
+      // Now auto-login by calling the login endpoint
+      const res = await axios.post("/auth/login", { username, password });
+      login(res.data.token, res.data.role);
       navigate("/");
-    } catch {
+    } catch (error) {
+      console.error("Registration error:", error);
       setError("Registration failed. Please try again.");
     }
   };

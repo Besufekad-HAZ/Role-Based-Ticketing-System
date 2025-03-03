@@ -4,21 +4,18 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Home from "./pages/Home"; // Import Home page
+import Home from "./pages/Home"; // assuming Home.jsx is your landing page
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
-import { useAuth } from "./context/AuthContext";
+import useAuth from "./hooks/useAuth";
 
-// Simple wrapper to check for token
 function PrivateRoute({ children, requiredRole }) {
   const { user } = useAuth();
-
   if (!user) return <Navigate to="/login" replace />;
   if (requiredRole && user.role !== requiredRole)
     return <Navigate to="/" replace />;
-
   return children;
 }
 

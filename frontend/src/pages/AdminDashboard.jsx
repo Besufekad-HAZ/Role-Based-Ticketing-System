@@ -6,6 +6,7 @@ const AdminDashboard = () => {
   const [tickets, setTickets] = useState([]);
   const [statusUpdates, setStatusUpdates] = useState({});
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -18,6 +19,8 @@ const AdminDashboard = () => {
       } catch (error) {
         console.error(error);
         setError("Failed to fetch tickets.");
+      } finally {
+        setLoading(false);
       }
     };
     fetchTickets();
@@ -44,6 +47,8 @@ const AdminDashboard = () => {
       setError("Update failed. Please try again.");
     }
   };
+
+  if (loading) return <div>Loading tickets...</div>;
 
   return (
     <div>
