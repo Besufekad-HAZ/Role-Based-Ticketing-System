@@ -1,28 +1,27 @@
+// filepath: src/pages/Login.jsx
 import React, { useState } from "react";
 import axios from "../services/api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
-function Login() {
+const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post("/auth/login", { username, password });
-      // Save token and role (or use your Auth context’s login function via useAuth)
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", response.data.role);
+      login(response.data.token, response.data.role);
+
       // Redirect based on role
-      if (response.data.role === "admin") {
-        navigate("/admin-dashboard");
-      } else {
-        navigate("/user-dashboard");
-      }
-    } catch (error) {
-      console.error(error);
+      const redirectPath =
+        response.data.role === "admin" ? "/admin-dashboard" : "/user-dashboard";
+      navigate(redirectPath);
+    } catch {
       setError("Invalid credentials");
     }
   };
@@ -48,8 +47,12 @@ function Login() {
         />
         <button type="submit">Login</button>
       </form>
+      <div className="auth-options">
+        <span>Don't have an account? </span>
+        <Link to="/signup">Sign Up</Link>
+      </div>
     </div>
   );
-}
+};
 
 export default Login;

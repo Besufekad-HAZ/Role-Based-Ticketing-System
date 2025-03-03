@@ -15,12 +15,13 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Call the signup endpoint
       await axios.post("/auth/signup", { username, email, password, role });
-      // Now auto-login by calling the login endpoint
+      // Auto-login after signup
       const res = await axios.post("/auth/login", { username, password });
       login(res.data.token, res.data.role);
-      navigate("/");
+      navigate(
+        res.data.role === "admin" ? "/admin-dashboard" : "/user-dashboard"
+      );
     } catch (error) {
       console.error("Registration error:", error);
       setError("Registration failed. Please try again.");

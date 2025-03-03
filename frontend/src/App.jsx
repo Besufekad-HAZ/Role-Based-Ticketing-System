@@ -4,7 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Home from "./pages/Home"; // assuming Home.jsx is your landing page
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UserDashboard from "./pages/UserDashboard";
@@ -13,9 +13,11 @@ import useAuth from "./hooks/useAuth";
 
 function PrivateRoute({ children, requiredRole }) {
   const { user } = useAuth();
+
   if (!user) return <Navigate to="/login" replace />;
   if (requiredRole && user.role !== requiredRole)
     return <Navigate to="/" replace />;
+
   return children;
 }
 
