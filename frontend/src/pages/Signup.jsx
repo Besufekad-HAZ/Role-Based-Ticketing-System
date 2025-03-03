@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { AuthProvider } from "../context/AuthContext";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -9,6 +10,7 @@ const Signup = () => {
   const [role, setRole] = useState("user");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = AuthProvider();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
