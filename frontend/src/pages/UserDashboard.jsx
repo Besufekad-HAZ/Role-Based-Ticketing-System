@@ -17,6 +17,7 @@ const UserDashboard = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTickets(response.data);
+        // eslint-disable-next-line no-unused-vars
       } catch (error) {
         setError("Failed to fetch tickets");
       } finally {
@@ -42,6 +43,7 @@ const UserDashboard = () => {
       });
       setTickets(response.data);
       setError("");
+      // eslint-disable-next-line no-unused-vars
     } catch (error) {
       setError("Failed to create ticket");
     }
