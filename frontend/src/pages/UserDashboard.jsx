@@ -49,38 +49,67 @@ const UserDashboard = () => {
   if (loading) return <div>Loading tickets...</div>;
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <h1>User Dashboard</h1>
+      <div className="max-w-4xl mx-auto p-4">
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">
+            Create New Ticket
+          </h1>
+          <form onSubmit={createTicket} className="space-y-4">
+            <input
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="Ticket Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+            <textarea
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary h-32"
+              placeholder="Ticket Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              className="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-md transition-colors"
+            >
+              Create Ticket
+            </button>
+          </form>
+        </div>
 
-      {/* Form to create a new ticket */}
-      <form onSubmit={createTicket}>
-        <input
-          type="text"
-          placeholder="Ticket Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        <textarea
-          placeholder="Ticket Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-        <button type="submit">Create Ticket</button>
-      </form>
-
-      {/* List user’s tickets */}
-      <h2>Your Tickets</h2>
-      <ul>
-        {tickets.map((ticket) => (
-          <li key={ticket._id}>
-            <strong>{ticket.title}</strong> - {ticket.status}
-            <p>{ticket.description}</p>
-          </li>
-        ))}
-      </ul>
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h2 className="text-xl font-semibold mb-4">Your Tickets</h2>
+          <div className="space-y-4">
+            {tickets.map((ticket) => (
+              <div
+                key={ticket._id}
+                className="border rounded-md p-4 hover:bg-gray-50"
+              >
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="font-medium text-lg">{ticket.title}</h3>
+                    <p className="text-gray-600">{ticket.description}</p>
+                  </div>
+                  <span
+                    className={`px-2 py-1 rounded-full text-sm ${
+                      ticket.status === "Open"
+                        ? "bg-green-100 text-green-800"
+                        : ticket.status === "In Progress"
+                        ? "bg-yellow-100 text-yellow-800"
+                        : "bg-red-100 text-red-800"
+                    }`}
+                  >
+                    {ticket.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
