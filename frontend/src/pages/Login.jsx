@@ -28,6 +28,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
+      <Navbar />
       <div className="w-full border-2 border-red-500 w-[30%] mx-auto px-4 min-h-screen flex items-center justify-center">
         <div className="w-full max-w-md backdrop-blur-lg bg-white/10 rounded-2xl shadow-2xl shadow-blue-900/50 border border-white/20 py-10 px-8">
           <div className="text-center mb-12">
