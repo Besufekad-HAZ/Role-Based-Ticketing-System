@@ -43,7 +43,7 @@ const Signup = () => {
           <div>
             <label className="block text-gray-700 mb-2">Username</label>
             <input
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
               type="text"
               placeholder="Username"
               value={username}
@@ -54,7 +54,7 @@ const Signup = () => {
           <div>
             <label className="block text-gray-700 mb-2">Email</label>
             <input
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
               type="email"
               placeholder="Email"
               value={email}
@@ -65,7 +65,7 @@ const Signup = () => {
           <div>
             <label className="block text-gray-700 mb-2">Password</label>
             <input
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
               type="password"
               placeholder="Password"
               value={password}
@@ -76,7 +76,7 @@ const Signup = () => {
           <div>
             <label className="block text-gray-700 mb-2">Role</label>
             <select
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
@@ -86,14 +86,14 @@ const Signup = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-primary hover:bg-secondary text-white py-2 px-4 rounded-md transition-colors"
+            className="w-full bg-black hover:bg-blue text-white py-2 px-4 rounded-md transition-colors"
           >
             Signup
           </button>
         </form>
         <div className="mt-4 text-center">
           <span className="text-gray-600">Already have an account? </span>
-          <Link to="/login" className="text-primary hover:underline">
+          <Link to="/login" className="text-black hover:underline">
             Login
           </Link>
         </div>

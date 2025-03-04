@@ -106,7 +106,7 @@ const AdminDashboard = () => {
                             [ticket._id]: e.target.value,
                           }))
                         }
-                        className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-black"
                       >
                         <option value="Open">Open</option>
                         <option value="In Progress">In Progress</option>
@@ -116,7 +116,7 @@ const AdminDashboard = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <button
                         onClick={() => updateStatus(ticket._id)}
-                        className="bg-primary hover:bg-secondary text-white px-3 py-1 rounded-md transition-colors"
+                        className="bg-black hover:bg-blue text-white px-3 py-1 rounded-md transition-colors"
                       >
                         Update
                       </button>

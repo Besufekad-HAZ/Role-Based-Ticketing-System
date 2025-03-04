@@ -58,14 +58,14 @@ const UserDashboard = () => {
           </h1>
           <form onSubmit={createTicket} className="space-y-4">
             <input
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
               placeholder="Ticket Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
             />
             <textarea
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary h-32"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black h-32"
               placeholder="Ticket Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -73,7 +73,7 @@ const UserDashboard = () => {
             />
             <button
               type="submit"
-              className="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-md transition-colors"
+              className="bg-black hover:bg-blue text-white px-4 py-2 rounded-md transition-colors"
             >
               Create Ticket
             </button>
