@@ -28,22 +28,22 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
-      <div className="container mx-auto px-4 h-screen flex items-center justify-center">
-        <div className="w-full max-w-md backdrop-blur-lg bg-white/10 rounded-2xl p-8 shadow-2xl shadow-blue-900/50 border border-white/20">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 mb-2">
+      <div className="w-full border-2 border-red-500 w-[30%] mx-auto px-4 min-h-screen flex items-center justify-center">
+        <div className="w-full max-w-md backdrop-blur-lg bg-white/10 rounded-2xl shadow-2xl shadow-blue-900/50 border border-white/20 py-10 px-8">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 mb-7">
               Welcome Back
             </h1>
-            <p className="text-gray-300">Please sign in to continue</p>
+            {/* Added text-lg */}
           </div>
-
           {error && (
-            <div className="mb-6 p-3 bg-red-500/20 text-red-300 rounded-lg border border-red-500/30">
+            <div className="mb-8 p-3 bg-red-500/20 text-red-300 rounded-lg border border-red-500/30">
+              {" "}
+              {/* Changed mb-6 to mb-8 */}
               {error}
             </div>
           )}
-
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-8">
             <div>
               <label className="block text-blue-200/80 mb-2 font-medium">
                 Username
@@ -93,9 +93,13 @@ const Login = () => {
               </svg>
             </button>
           </form>
-
-          <div className="mt-6 text-center">
-            <p className="text-gray-400">
+          {/* Bottom link with increased spacing */}
+          <div className="mt-8 pb-4 text-center">
+            {" "}
+            {/* Changed mt-6 to mt-8 and added pb-4 */}
+            <p className="text-gray-400 text-lg">
+              {" "}
+              {/* Added text-lg */}
               Don't have an account?{" "}
               <Link
                 to="/signup"
