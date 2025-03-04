@@ -7,6 +7,7 @@ const UserDashboard = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -17,7 +18,7 @@ const UserDashboard = () => {
         });
         setTickets(response.data);
       } catch (error) {
-        console.error(error);
+        setError("Failed to fetch tickets");
       } finally {
         setLoading(false);
       }
@@ -36,77 +37,147 @@ const UserDashboard = () => {
       );
       setTitle("");
       setDescription("");
-      // Refresh ticket list
       const response = await axios.get("/tickets", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTickets(response.data);
+      setError("");
     } catch (error) {
-      console.error(error);
+      setError("Failed to create ticket");
     }
   };
 
-  if (loading) return <div>Loading tickets...</div>;
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
       <Navbar />
-      <div className="max-w-4xl mx-auto p-4">
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">
-            Create New Ticket
-          </h1>
-          <form onSubmit={createTicket} className="space-y-4">
-            <input
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-              placeholder="Ticket Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-            <textarea
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black h-32"
-              placeholder="Ticket Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-            <button
-              type="submit"
-              className="bg-black hover:bg-blue text-white px-4 py-2 rounded-md transition-colors"
-            >
-              Create Ticket
-            </button>
-          </form>
-        </div>
+      <div className="max-w-7xl mx-auto p-8">
+        <div className="space-y-8">
+          {/* Create Ticket Card */}
+          <div className="backdrop-blur-xl bg-white/5 rounded-3xl shadow-2xl shadow-purple-900/30 border border-white/20 p-8">
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                New Support Ticket
+              </h1>
+              <p className="text-gray-400 mt-2">
+                Describe your issue in detail for faster resolution
+              </p>
+            </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4">Your Tickets</h2>
-          <div className="space-y-4">
-            {tickets.map((ticket) => (
-              <div
-                key={ticket._id}
-                className="border rounded-md p-4 hover:bg-gray-50"
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-medium text-lg">{ticket.title}</h3>
-                    <p className="text-gray-600">{ticket.description}</p>
-                  </div>
-                  <span
-                    className={`px-2 py-1 rounded-full text-sm ${
-                      ticket.status === "Open"
-                        ? "bg-green-100 text-green-800"
-                        : ticket.status === "In Progress"
-                        ? "bg-yellow-100 text-yellow-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
-                  >
-                    {ticket.status}
-                  </span>
-                </div>
+            {error && (
+              <div className="mb-6 p-4 bg-red-500/20 text-red-300 rounded-lg border border-red-500/30">
+                {error}
               </div>
-            ))}
+            )}
+
+            <form onSubmit={createTicket} className="space-y-6">
+              <div>
+                <label className="block text-blue-200/80 mb-3 font-medium">
+                  Title
+                </label>
+                <input
+                  className="w-full px-4 py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20
+                    focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent
+                    placeholder:text-gray-400 text-white transition-all"
+                  placeholder="Enter ticket title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-blue-200/80 mb-3 font-medium">
+                  Description
+                </label>
+                <textarea
+                  className="w-full px-4 py-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20
+                    focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent
+                    placeholder:text-gray-400 text-white transition-all h-40"
+                  placeholder="Describe your issue..."
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-blue-500
+                  text-white font-semibold rounded-xl hover:from-purple-700 hover:to-blue-600
+                  transition-all transform hover:scale-[1.02] shadow-lg shadow-purple-500/20
+                  flex items-center justify-center space-x-2"
+              >
+                <span>Submit Ticket</span>
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                  />
+                </svg>
+              </button>
+            </form>
+          </div>
+
+          {/* Tickets List */}
+          <div className="backdrop-blur-xl bg-white/5 rounded-3xl shadow-2xl shadow-purple-900/30 border border-white/20 p-8">
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Your Tickets
+              </h2>
+              <p className="text-gray-400 mt-2">
+                {tickets.length} active ticket(s)
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {tickets.map((ticket) => (
+                <div
+                  key={ticket._id}
+                  className="bg-white/5 backdrop-blur-sm rounded-xl p-6 hover:bg-white/10 transition-all border border-white/20 group"
+                >
+                  <div className="flex justify-between items-start">
+                    <div className="space-y-3">
+                      <h3 className="text-xl font-semibold text-gray-200 group-hover:text-white transition-colors">
+                        {ticket.title}
+                      </h3>
+                      <p className="text-gray-400 group-hover:text-gray-300 transition-colors">
+                        {ticket.description}
+                      </p>
+                      <div className="text-sm text-purple-300">
+                        Created:{" "}
+                        {new Date(ticket.createdAt).toLocaleDateString()}
+                      </div>
+                    </div>
+                    <span
+                      className={`px-3 py-1.5 rounded-full text-sm font-medium ${
+                        ticket.status === "Open"
+                          ? "bg-green-500/20 text-green-300"
+                          : ticket.status === "In Progress"
+                          ? "bg-yellow-500/20 text-yellow-300"
+                          : "bg-red-500/20 text-red-300"
+                      }`}
+                    >
+                      {ticket.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
