@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div className="home-container">
-      <h1>Welcome to Ticketing System</h1>
+      <h1 className="text-5xl">Welcome to Ticketing System</h1>
       <div className="auth-options">
         <Link to="/login" className="auth-link">
           Login
