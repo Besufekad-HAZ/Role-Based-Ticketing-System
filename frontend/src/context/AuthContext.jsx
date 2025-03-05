@@ -1,17 +1,21 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
+import axios from "../services/api";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Rehydrate auth state from localStorage
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
     const username = localStorage.getItem("username");
     if (token && role && username) {
       setUser({ role, username });
     }
+    setLoading(false);
   }, []);
 
   const login = (token, role, username) => {
@@ -29,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

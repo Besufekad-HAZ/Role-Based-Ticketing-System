@@ -12,11 +12,19 @@ import AdminDashboard from "./pages/AdminDashboard";
 import useAuth from "./hooks/useAuth";
 
 function PrivateRoute({ children, requiredRole }) {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
-  if (!user) return <Navigate to="/login" replace />;
-  if (requiredRole && user.role !== requiredRole)
+  if (loading) {
+    return <div>Loading...</div>; // Show loading state
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (requiredRole && user.role !== requiredRole) {
     return <Navigate to="/" replace />;
+  }
 
   return children;
 }
