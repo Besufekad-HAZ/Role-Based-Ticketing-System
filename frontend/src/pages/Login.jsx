@@ -8,11 +8,14 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(""); // clear existing error
     try {
       const response = await axios.post("/auth/login", { username, password });
       login(response.data.token, response.data.role, response.data.username);
@@ -22,6 +25,7 @@ const Login = () => {
     } catch {
       setError("Invalid credentials");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -84,12 +88,13 @@ const Login = () => {
 
             <button
               type="submit"
+              disabled={isLoading}
               className="w-full py-4 px-6 bg-gradient-to-r from-purple-600 to-blue-500
                 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-blue-600
                 transition-all transform hover:scale-[1.02] shadow-lg shadow-purple-500/20
-                flex items-center justify-center space-x-2"
+                flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span>Sign In</span>
+              {isLoading ? <span>Loading...</span> : <span>Sign In</span>}
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"
