@@ -6,8 +6,8 @@ const Home = () => {
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-blue-900 to-purple-900 flex items-center justify-center p-4">
       <div className="w-full max-w-2xl backdrop-blur-xl bg-white/5 rounded-3xl shadow-2xl shadow-purple-900/30 border border-white/20 p-12 space-y-10">
         {/* Header Section */}
-        <div className="text-center space-y-6">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+        <div className="text-center space-y-3">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent py-3">
             Welcome to Ticketing System
           </h1>
           <p className="text-gray-300 text-xl font-light">
@@ -16,7 +16,7 @@ const Home = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="space-y-8">
+        <div className="space-y-[10px]">
           <Link
             to="/login"
             className="group relative flex justify-center items-center gap-3 w-full py-5 px-8 bg-gradient-to-r from-indigo-600 to-purple-500
@@ -47,7 +47,7 @@ const Home = () => {
               <div className="w-full border-t border-white/20"></div>
             </div>
             <div className="relative flex justify-center">
-              <span className="px-4 bg-transparent text-gray-300 text-sm">
+              <span className="px-4 bg-transparent text-gray-300 text-m">
                 or
               </span>
             </div>

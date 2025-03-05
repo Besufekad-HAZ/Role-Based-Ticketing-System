@@ -33,9 +33,9 @@ const Signup = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
       <Navbar />
       <div className="flex items-center justify-center min-h-screen p-4">
-        <div className="w-full max-w-md backdrop-blur-xl bg-white/5 rounded-3xl shadow-2xl shadow-purple-900/30 border border-white/20 p-10 space-y-10">
+        <div className="w-full max-w-md backdrop-blur-xl bg-white/5 rounded-3xl shadow-2xl shadow-purple-900/30 border border-white/20 p-10 space-y-3">
           {/* Header Section */}
-          <div className="text-center space-y-6">
+          <div className="text-center space-y-3">
             <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               Create Account
             </h1>
@@ -53,7 +53,7 @@ const Signup = () => {
 
           {/* Form Section */}
           <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="space-y-6">
+            <div className="space-y-3">
               {/* Username Input */}
               <div>
                 <label className="block text-blue-200/80 mb-3 font-medium">
