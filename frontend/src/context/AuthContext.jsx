@@ -1,4 +1,3 @@
-// Keep only essential context code
 import React, { createContext, useState, useEffect, useContext } from "react";
 
 const AuthContext = createContext();
@@ -9,18 +8,23 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
-    if (token && role) setUser({ role });
+    const username = localStorage.getItem("username");
+    if (token && role && username) {
+      setUser({ role, username });
+    }
   }, []);
 
-  const login = (token, role) => {
+  const login = (token, role, username) => {
     localStorage.setItem("token", token);
     localStorage.setItem("role", role);
-    setUser({ role });
+    localStorage.setItem("username", username);
+    setUser({ role, username });
   };
 
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
+    localStorage.removeItem("username");
     setUser(null);
   };
 
