@@ -50,7 +50,8 @@ router.post("/login", async (req, res) => {
       { userId: user._id, role: user.role },
       process.env.JWT_SECRET
     );
-    res.json({ token, role: user.role });
+    // Return username too
+    res.json({ token, role: user.role, username: user.username });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
