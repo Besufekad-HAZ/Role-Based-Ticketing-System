@@ -15,8 +15,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post("/auth/login", { username, password });
-      login(response.data.token, response.data.role);
-
+      // Pass token, role, and username to the login function
+      login(response.data.token, response.data.role, response.data.username);
       const redirectPath =
         response.data.role === "admin" ? "/admin-dashboard" : "/user-dashboard";
       navigate(redirectPath);
