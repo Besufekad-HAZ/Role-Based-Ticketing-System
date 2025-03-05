@@ -10,11 +10,14 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(""); // clear existing error
     try {
       await axios.post("/auth/signup", { username, email, password, role });
       // Auto-login after signup
@@ -27,6 +30,7 @@ const Signup = () => {
       console.error("Registration error:", error);
       setError("Registration failed. Please try again.");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -130,12 +134,17 @@ const Signup = () => {
             {/* Submit Button */}
             <button
               type="submit"
+              disabled={isLoading}
               className="w-full py-4 px-6 bg-gradient-to-r from-purple-600 to-blue-500
                 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-blue-600
                 transition-all transform hover:scale-[1.02] shadow-lg shadow-purple-500/20
-                flex items-center justify-center space-x-2"
+                flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span>Create Account</span>
+              {isLoading ? (
+                <span>Loading...</span>
+              ) : (
+                <span>Create Account</span>
+              )}
               <svg
                 className="w-5 h-5 text-white"
                 fill="none"
