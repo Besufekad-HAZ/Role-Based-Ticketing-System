@@ -16,8 +16,7 @@ A full-stack MERN application for managing support tickets with role-based acces
 - **Backend:** Node.js, Express, MongoDB (Mongoose), JWT, Bcrypt
 - **Deployment:** Render/Heroku for backend & Netlify/Vercel for frontend
 
-
-## Live Demo <a name="live-demo"></a>
+## 🚀 Live Demo <a name="live-demo"></a>
 
 To see this project's live demo, please click [here](https://role-based-ticketing.netlify.app/).
 
@@ -86,7 +85,7 @@ Backend Setup
   npm run dev
   ```
 
-The app will typically run on http://localhost:5173
+The app will typically run on <http://localhost:5173>
 
 4.Important: Update the API base URL in your Axios instance (located in /src/services/api.js) when deploying:
 
@@ -116,7 +115,6 @@ Deploy your frontend using Netlify or Vercel:
 - Set the build command (npm run build) and publish directory (build).
 - Update the API base URL in your Axios configuration so the frontend points to your deployed backend.
 
-
 ## 🤝 Contributing <a name="contributing"></a>
 
 _Contributions, issues, and feature requests are welcome!_
@@ -134,5 +132,6 @@ _If you like this project, please give it a ⭐️ !_
 _This project is [MIT](./LICENSE) licensed._
 
 ## 🙏 Acknowledgments <a name="acknowledgments"></a>
+
 Built with ❤️ using the MERN stack.
 Tailwind CSS for modern UI styling.
