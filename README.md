@@ -19,7 +19,7 @@ A full-stack MERN application for managing support tickets with role-based acces
 
 ## Live Demo <a name="live-demo"></a>
 
-To see this project's live demo, please click [here]().
+To see this project's live demo, please click [here](https://role-based-ticketing.netlify.app/).
 
 ---
 
