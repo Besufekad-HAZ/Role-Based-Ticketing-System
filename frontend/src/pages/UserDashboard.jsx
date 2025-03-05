@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "../services/api";
 import Navbar from "../components/Navbar";
+import useAuth from "../hooks/useAuth";
 
 const UserDashboard = () => {
+  const { user } = useAuth();
   const [tickets, setTickets] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -61,6 +63,14 @@ const UserDashboard = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
       <Navbar />
       <div className="max-w-7xl mx-auto p-8">
+        {/* Welcome Section */}
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            Welcome, {user?.username}
+          </h1>
+          <p className="text-gray-400 mt-2">Role: {user?.role}</p>
+        </div>
+
         <div className="space-y-8">
           {/* Create Ticket Card */}
           <div className="backdrop-blur-xl bg-white/5 rounded-3xl shadow-2xl shadow-purple-900/30 border border-white/20 p-8">

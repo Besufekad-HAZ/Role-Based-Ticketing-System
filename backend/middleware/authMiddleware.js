@@ -8,7 +8,11 @@ const authMiddleware = (req, res, next) => {
   try {
     // Use JWT_SECRET from env variables
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Decoded payload contains userId and role
+    req.user = {
+      userId: decoded.userId,
+      role: decoded.role,
+      username: decoded.username, // Make sure your JWT includes this
+    };
     next();
   } catch (err) {
     res.status(400).send("Invalid token");

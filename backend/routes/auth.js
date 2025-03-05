@@ -1,7 +1,8 @@
-const  router = require("express").Router();
+const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const authMiddleware = require("../middleware/authMiddleware");
 
 // POST /signup → Register user with role selection
 router.post("/signup", async (req, res) => {
@@ -47,7 +48,11 @@ router.post("/login", async (req, res) => {
 
     // Use JWT_SECRET from environment variables
     const token = jwt.sign(
-      { userId: user._id, role: user.role },
+      {
+        userId: user._id,
+        role: user.role,
+        username: user.username, // Add this
+      },
       process.env.JWT_SECRET
     );
     // Return username too
@@ -55,6 +60,11 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+// In backend/routes/auth.js
+router.get("/verify", authMiddleware, (req, res) => {
+  res.json({ valid: true });
 });
 
 module.exports = router;

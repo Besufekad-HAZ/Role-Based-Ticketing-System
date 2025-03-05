@@ -19,7 +19,7 @@ const Signup = () => {
       await axios.post("/auth/signup", { username, email, password, role });
       // Auto-login after signup
       const res = await axios.post("/auth/login", { username, password });
-      login(res.data.token, res.data.role);
+      login(res.data.token, res.data.role, res.data.username); // Add username
       navigate(
         res.data.role === "admin" ? "/admin-dashboard" : "/user-dashboard"
       );
